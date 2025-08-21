@@ -88,7 +88,7 @@ JDBC URL: `jdbc:h2:mem:testdb`
 
 ## ✨ Objetivo
 
-- Proyecto en evolución para reforzar conocimientos en:
+Proyecto en evolución para reforzar conocimientos en:
 
 - Desarrollo de microservicios con Spring Boot
 
