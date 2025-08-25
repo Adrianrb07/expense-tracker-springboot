@@ -1,3 +1,4 @@
+[![CI](https://github.com/Adrianrb07/https://github.com/Adrianrb07/expense-tracker-springboot/actions/workflows/ci.yml/badge.svg)](https://github.com/Adrianrb07/https://github.com/Adrianrb07/expense-tracker-springboot/actions/workflows/ci.yml)
 # 💸 Expense Tracker – Spring Boot
 
 Microservicio REST para gestión de gastos, desarrollado como **pet project de aprendizaje** en Spring Boot.  
