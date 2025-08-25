@@ -82,8 +82,8 @@ JDBC URL: `jdbc:h2:mem:testdb`
 - [x] CRUD completo de gastos
 - [x] Validaciones y excepciones personalizadas
 - [x] Filtros por rango de fechas
-- [ ] Tests unitarios e integración (en progreso)
-- [ ] Documentación con Swagger
+- [x] Tests unitarios e integración 
+- [X] Documentación con Swagger
 - [ ] Dockerfile + despliegue en la nube
 
 ## ✨ Objetivo

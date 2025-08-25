@@ -14,6 +14,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "Expenses", description = "CRUD de gastos")
 @Validated
 @RestController
 @RequestMapping("/api/expenses")
@@ -25,17 +29,20 @@ public class ExpenseController {
         this.service = service;
     }
 
+    @Operation(summary = "Crear gasto")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ExpenseResponse create(@Valid @RequestBody ExpenseRequest req) {
         return toResponse(service.create(req));
     }
 
+    @Operation(summary = "Listar todos los gastos")
     @GetMapping("/all")
     public List<ExpenseResponse> listAll() {
         return service.listAll().stream().map(this::toResponse).toList();
     }
 
+    @Operation(summary = "Listar gastos por rango de fechas")
     @GetMapping
     public List<ExpenseResponse> list(// Todo: analizar este método y cambiar nombre
                                       @RequestParam @NotNull String from,
@@ -46,6 +53,7 @@ public class ExpenseController {
 
     }
 
+    @Operation(summary = "Obtener gasto por ID")
     @GetMapping("/{id}")
     public ExpenseResponse getById(@PathVariable UUID id) {
         Expense e = service.listAll().stream()
@@ -55,11 +63,13 @@ public class ExpenseController {
         return toResponse(e);
     }
 
+    @Operation(summary = "Actualizar gasto por ID")
     @PutMapping("/{id}")
     public ExpenseResponse update(@PathVariable UUID id, @Valid @RequestBody ExpenseRequest req) {
         return toResponse(service.update(id, req));
     }
 
+    @Operation(summary = "Eliminar gasto por ID")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable UUID id) {
