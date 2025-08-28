@@ -4,8 +4,8 @@ import dev.adrian.expense_tracker.domain.Expense;
 import dev.adrian.expense_tracker.dto.ExpenseRequest;
 import dev.adrian.expense_tracker.dto.ExpenseResponse;
 import dev.adrian.expense_tracker.service.ExpenseService;
+import dev.adrian.expense_tracker.web.errors.NotFoundException;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -36,30 +36,30 @@ public class ExpenseController {
         return toResponse(service.create(req));
     }
 
-    @Operation(summary = "Listar todos los gastos")
-    @GetMapping("/all")
-    public List<ExpenseResponse> listAll() {
-        return service.listAll().stream().map(this::toResponse).toList();
-    }
-
-    @Operation(summary = "Listar gastos por rango de fechas")
+    @Operation(summary = "Listar gastos (sin filtros o por rango de fechas)")
     @GetMapping
-    public List<ExpenseResponse> list(// Todo: analizar este método y cambiar nombre
-                                      @RequestParam @NotNull String from,
-                                      @RequestParam @NotNull String to) {
-
-        return service.listByDateRange(LocalDate.parse(from), LocalDate.parse(to))
-                .stream().map(this::toResponse).toList();
-
+    public List<ExpenseResponse> list(
+            @RequestParam(required = false) String from,
+            @RequestParam(required = false) String to
+    ) {
+        // sin filtros -> todos
+        if (from == null && to == null) {
+            return service.listAll().stream().map(this::toResponse).toList();
+        }
+        // si viene uno solo -> 400 claro
+        if (from == null || to == null) {
+            throw new IllegalArgumentException("Parámetros 'from' y 'to' deben enviarse juntos en formato YYYY-MM-DD");
+        }
+        // ambos presentes -> rango
+        LocalDate f = LocalDate.parse(from);
+        LocalDate t = LocalDate.parse(to);
+        return service.listByDateRange(f, t).stream().map(this::toResponse).toList();
     }
 
     @Operation(summary = "Obtener gasto por ID")
     @GetMapping("/{id}")
     public ExpenseResponse getById(@PathVariable UUID id) {
-        Expense e = service.listAll().stream()
-                .filter(exp -> exp.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Expense not found: " + id));
+        Expense e = service.findById(id).orElseThrow(() -> new NotFoundException("Expense not found: " + id));
         return toResponse(e);
     }
 

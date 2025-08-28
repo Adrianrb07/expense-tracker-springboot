@@ -4,6 +4,7 @@ import dev.adrian.expense_tracker.web.errors.NotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -41,4 +42,21 @@ public class GlobalExceptionHandler {
                 "message", ex.getMessage()
         );
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(org.springframework.web.bind.MissingServletRequestParameterException.class)
+    public Map<String, Object> handleMissingParam(MissingServletRequestParameterException ex) {
+        return Map.of(
+                "error", "missing_parameter",
+                "message", "Falta el parámetro '" + ex.getParameterName() + "'",
+                "param", ex.getParameterName()
+        );
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalArgumentException.class)
+    public Map<String, Object> handleIllegalArgument(IllegalArgumentException ex) {
+        return Map.of("error","bad_request","message", ex.getMessage());
+    }
+
 }

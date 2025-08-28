@@ -1,0 +1,11 @@
+services:
+  expense-tracker:
+    build: .
+    image: expense-tracker:latest
+    container_name: expense-tracker
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    volumes:
+      - ./data:/app/data
