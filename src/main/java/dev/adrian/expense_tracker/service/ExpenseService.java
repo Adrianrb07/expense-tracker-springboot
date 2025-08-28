@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -49,6 +50,10 @@ public class ExpenseService {
     @Transactional(readOnly = true)
     public List<Expense> listByDateRange(LocalDate from, LocalDate to) {
         return repo.findByExpenseDateBetweenOrderByExpenseDateDesc(from, to);
+    }
+
+    public Optional<Expense> findById(UUID id) {
+        return repo.findById(id);
     }
 
     @Transactional
