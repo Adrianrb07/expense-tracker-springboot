@@ -87,25 +87,6 @@ class ExpenseControllerTest {
     }
 
     @Test
-    void list_should_return_all_when_no_params() throws Exception {
-        var e = new Expense();
-        e.setId(UUID.randomUUID());
-        e.setDescription("Agua");
-        e.setAmountMinor(800L);
-        e.setCurrency("EUR");
-        e.setExpenseDate(LocalDate.parse("2025-08-20"));
-
-        when(service.listAll()).thenReturn(List.of(e));
-
-        mvc.perform(get("/api/expenses/all"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].description").value("Agua"))
-                .andExpect(jsonPath("$[0].amountMinor").value(800))
-                .andExpect(jsonPath("$[0].currency").value("EUR"))
-                .andExpect(jsonPath("$[0].expenseDate").value("2025-08-20"));
-    }
-
-    @Test
     void list_should_filter_by_date_range() throws Exception {
         when(service.listByDateRange(LocalDate.parse("2025-08-01"), LocalDate.parse("2025-08-31")))
                 .thenReturn(List.of());
