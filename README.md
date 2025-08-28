@@ -77,8 +77,24 @@ DELETE /api/expenses/{id}
 
 ## 🛢️ Consola H2
 Disponible en:  
-👉 [http://localhost:8081/h2-console](http://localhost:8081/h2-console)  
-JDBC URL: `jdbc:h2:mem:testdb`
+👉 [http://localhost:8081/h2-console](http://localhost:8081/h2/)  
+- JDBC URL: `jdbc:h2:file:./data/expensetracker`
+- User Name: `sa`
+- Password: (vacío)
+
+
+## 📘 Documentación de la API (Swagger / OpenAPI)
+
+Este proyecto incluye documentación interactiva generada automáticamente con [springdoc-openapi](https://springdoc.org/).
+
+- **Swagger UI** → [http://localhost:8081/swagger-ui/index.html](http://localhost:8081/swagger-ui/index.html)
+- **Esquema OpenAPI (JSON)** → [http://localhost:8081/v3/api-docs](http://localhost:8081/v3/api-docs)
+
+Desde la interfaz Swagger puedes:
+- Navegar por los endpoints (`GET`, `POST`, `PUT`, `DELETE`).
+- Probar llamadas en vivo desde el navegador.
+- Ver ejemplos de request/response.
+
 
 ## ✅ Estado actual
 - [x] CRUD completo de gastos
