@@ -82,7 +82,6 @@ Disponible en:
 - User Name: `sa`
 - Password: (vacío)
 
-
 ## 📘 Documentación de la API (Swagger / OpenAPI)
 
 Este proyecto incluye documentación interactiva generada automáticamente con [springdoc-openapi](https://springdoc.org/).
@@ -95,6 +94,50 @@ Desde la interfaz Swagger puedes:
 - Probar llamadas en vivo desde el navegador.
 - Ver ejemplos de request/response.
 
+## 🐘 Docker Compose con Postgres
+
+El proyecto puede ejecutarse utilizando una base de datos **Postgres real** mediante Docker Compose, simulando un entorno cercano a producción.
+
+### ▶️ Arrancar el stack con Postgres
+```bash
+docker compose --profile pg up --build
+```
+
+Este comando levantará:
+
+- La aplicación Spring Boot
+
+- Una base de datos Postgres en contenedor
+
+- Persistencia de datos mediante un volumen Docker
+
+🌐 Servicios disponibles
+
+- API REST → http://localhost:8080/api/expenses
+
+- Swagger UI → http://localhost:8080/swagger-ui/index.html
+
+💾 Persistencia de datos
+
+- Los datos se almacenan en un volumen Docker llamado pgdata.
+
+- Si se detienen y vuelven a levantar los contenedores, los datos no se pierden.
+
+Para resetear completamente la base de datos:
+```bash
+docker compose --profile pg down -v
+```
+🔧 Configuración utilizada
+
+- Perfil activo de Spring: docker-pg
+
+- Base de datos: Postgres
+
+- Puerto Postgres: 5432
+
+- Puerto aplicación: 8080
+
+Este modo de ejecución es el recomendado para pruebas de integración y validación del backend.
 
 ## ✅ Estado actual
 - [x] CRUD completo de gastos
@@ -102,7 +145,9 @@ Desde la interfaz Swagger puedes:
 - [x] Filtros por rango de fechas
 - [x] Tests unitarios e integración 
 - [X] Documentación con Swagger
-- [ ] Dockerfile + despliegue en la nube
+- [X] Dockerización completa
+- [X] Soporte para Postgres con Docker Compose
+- [ ] Flyway para migraciones de BD
 
 ## ✨ Objetivo
 
