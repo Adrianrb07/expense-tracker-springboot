@@ -40,13 +40,12 @@ public class ExpenseController {
     @GetMapping
     public List<ExpenseResponse> list(
             @RequestParam(required = false) String from,
-            @RequestParam(required = false) String to
-    ) {
+            @RequestParam(required = false) String to) {
         // sin filtros -> todos
         if (from == null && to == null) {
             return service.listAll().stream().map(this::toResponse).toList();
         }
-        // si viene uno solo -> 400 claro
+        // si viene uno solo -> 400
         if (from == null || to == null) {
             throw new IllegalArgumentException("Parámetros 'from' y 'to' deben enviarse juntos en formato YYYY-MM-DD");
         }
