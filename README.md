@@ -25,7 +25,7 @@ src/main/java/dev/adrian/expense_tracker
 │ └── errors → Manejo de excepciones
 ```
 
-## 📑 Endpoints principales
+## 📑 Endpoints principales (Expense es la única entidad por ahora)
 ### Crear gasto
 ```http
 POST /api/expenses
@@ -139,6 +139,17 @@ docker compose --profile pg down -v
 
 Este modo de ejecución es el recomendado para pruebas de integración y validación del backend.
 
+## 🛫 Migraciones de base de datos (Flyway)
+
+El esquema de la base de datos se gestiona mediante **Flyway**.
+
+- Las migraciones viven en `src/main/resources/db/migration`
+- Se aplican automáticamente al arrancar la aplicación
+- Ejemplo:
+    - `V1__init_expense.sql`
+    - `V2__add_indexes_and_constraints.sql`
+
+
 ## ✅ Estado actual
 - [x] CRUD completo de gastos
 - [x] Validaciones y excepciones personalizadas
@@ -147,7 +158,7 @@ Este modo de ejecución es el recomendado para pruebas de integración y validac
 - [X] Documentación con Swagger
 - [X] Dockerización completa
 - [X] Soporte para Postgres con Docker Compose
-- [ ] Flyway para migraciones de BD
+- [X] Flyway para migraciones de BD
 
 ## ✨ Objetivo
 
