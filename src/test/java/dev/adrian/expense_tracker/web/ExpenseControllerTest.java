@@ -36,7 +36,7 @@ class ExpenseControllerTest {
             { "description": "", "amountMinor": -10, "currency": "EU", "expenseDate": null }
         """;
 
-        mvc.perform(post("/api/expenses")
+        mvc.perform(post("/api/v1/expenses")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(invalidJson))
                 .andExpect(status().isBadRequest())
@@ -60,7 +60,7 @@ class ExpenseControllerTest {
 
         when(service.create(any())).thenReturn(saved);
 
-        mvc.perform(post("/api/expenses")
+        mvc.perform(post("/api/v1/expenses")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(req)))
                 .andExpect(status().isCreated())
@@ -78,7 +78,7 @@ class ExpenseControllerTest {
 
         when(service.update(eq(id), any())).thenThrow(new NotFoundException("Expense not found: " + id));
 
-        mvc.perform(put("/api/expenses/{id}", id)
+        mvc.perform(put("/api/v1/expenses/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(req)))
                 .andExpect(status().isNotFound())
@@ -91,7 +91,7 @@ class ExpenseControllerTest {
         when(service.listByDateRange(LocalDate.parse("2025-08-01"), LocalDate.parse("2025-08-31")))
                 .thenReturn(List.of());
 
-        mvc.perform(get("/api/expenses")
+        mvc.perform(get("/api/v1/expenses")
                         .param("from", "2025-08-01")
                         .param("to", "2025-08-31"))
                 .andExpect(status().isOk());

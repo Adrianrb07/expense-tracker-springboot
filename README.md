@@ -28,7 +28,7 @@ src/main/java/dev/adrian/expense_tracker
 ## 📑 Endpoints principales (Expense es la única entidad por ahora)
 ### Crear gasto
 ```http
-POST /api/expenses
+POST /api/v1/expenses
 Content-Type: application/json
 {
   "description": "Cine",
@@ -40,22 +40,22 @@ Content-Type: application/json
 
 ### Listar todos los gastos
 ```http
-GET /api/expenses
+GET /api/v1/expenses
 ```
 
 ### Obtener gasto por ID
 ```http
-GET /api/expenses/{id}
+GET /api/v1/expenses/{id}
 ```
 
 ### Filtrar por rango de fechas
 ```http
-GET /api/expenses?from=2025-08-01&to=2025-08-31
+GET /api/v1/expenses?from=2025-08-01&to=2025-08-31
 ```
 
 ### Actualizar gasto
 ```http
-PUT /api/expenses/{id}
+PUT /api/v1/expenses/{id}
 Content-Type: application/json
 {
   "description": "Cine",
@@ -67,7 +67,7 @@ Content-Type: application/json
 
 ### Eliminar gasto
 ```http
-DELETE /api/expenses/{id}
+DELETE /api/v1/expenses/{id}
 ```
 
 ## 🛠️ Cómo ejecutar
@@ -113,7 +113,7 @@ Este comando levantará:
 
 🌐 Servicios disponibles
 
-- API REST → http://localhost:8080/api/expenses
+- API REST → http://localhost:8080//api/v1/expenses
 
 - Swagger UI → http://localhost:8080/swagger-ui/index.html
 
