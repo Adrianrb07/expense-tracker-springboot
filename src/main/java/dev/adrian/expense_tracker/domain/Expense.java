@@ -25,6 +25,10 @@ public class Expense {
     @Column(nullable = false)
     private LocalDate expenseDate;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     public UUID getId() {
         return id;
     }
@@ -63,5 +67,13 @@ public class Expense {
 
     public void setExpenseDate(LocalDate expenseDate) {
         this.expenseDate = expenseDate;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
